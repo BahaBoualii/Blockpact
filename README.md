@@ -27,4 +27,4 @@ To get started with this project, follow these steps:
 
 # Usage:
 - Run the main Java file to initialize the blockchain and interact with the system.
-- Follow the comments in the main method to create wallets, make transactions, and mine blocks.
+- Follow the comments and examples to create wallets, make transactions, and mine blocks.
