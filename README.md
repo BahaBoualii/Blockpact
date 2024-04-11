@@ -11,6 +11,7 @@ This is a basic blockchain implementation project! It was created as a learning 
 - **Elliptic-Curve Cryptography:** Public and private keys for wallets are generated using Elliptic-Curve cryptography, ensuring secure transactions.
 - **Secure Fund Transfer:** Utilizes digital signature algorithm to prove ownership and secure the transfer of funds between wallets.
 - **Transaction Management:** Users can make transactions within the blockchain network.
+- I still need to work on the networking part of the project
 
 # Getting Started
 
