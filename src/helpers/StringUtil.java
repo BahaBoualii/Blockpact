@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Base64;
 
 public class StringUtil {
+
+        //Applies Sha256 to a string and returns the result.
         public static String applySHA256(String input) {
             try {
                 MessageDigest digest = MessageDigest.getInstance("SHA-256");
@@ -20,7 +22,7 @@ public class StringUtil {
                 throw new RuntimeException(e);
             }
         }
-
+        //Applies ECDSA Signature and returns the result ( as bytes ).
         public static byte[] applyECDSASignature(PrivateKey privateKey, String input) {
             Signature dsa;
             byte[] output = new byte[0];
@@ -36,6 +38,7 @@ public class StringUtil {
             return output;
         }
 
+        //Verifies a String signature
         public static boolean verifyECDSASignature(PublicKey publicKey, String data, byte[] signature) {
             try{
                 Signature ecdsaVerify = Signature.getInstance("ECDSA", "BC");

@@ -20,6 +20,7 @@ public class Block {
         this.hash = generateHash();
     }
 
+    //Calculate new hash based on blocks contents
     public String generateHash() {
         return StringUtil.applySHA256(
                 previousHash +
@@ -29,6 +30,7 @@ public class Block {
         );
     }
 
+    //Increases nonce value until hash target is reached.
     public void mineBlock(int difficulty) {
         merkleRoot = Helpers.getMerkleRoot(transactions);
         String target = new String(new char[difficulty]).replace('\0', '0');
@@ -39,6 +41,7 @@ public class Block {
         System.out.println("Block Mined!!! :" + hash);
     }
 
+    //Add transactions to this block
     public void addTransaction(Transaction transaction) {
         if(transaction == null) return;
         if(!"0".equals(previousHash)) {

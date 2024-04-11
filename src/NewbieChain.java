@@ -10,12 +10,16 @@ public class NewbieChain {
     public static ArrayList<Block> blockchain = new ArrayList<Block>();
     public static HashMap<String, TransactionOutput> UTXOs = new HashMap<String, TransactionOutput>();
 
+    // this variable is for the mining difficulty (number of 0's the mining method should solve for)
     public static int difficulty = 3;
+    // this is the allowed minimum transaction amount in our blockchain
     public static float minimumTransaction = 0.1f;
 
+    // create the wallets
     public static Wallet walletA;
     public static Wallet walletB;
 
+    // first transaction of the blockchain (hardcoded)
     public static Transaction genesisTransaction;
 
     public static Boolean isChainValid() {
@@ -108,6 +112,7 @@ public class NewbieChain {
         walletB = new Wallet();
         Wallet coinbase = new Wallet();
 
+        // this section is reserved for the first transaction of our blockchain and the amount of coins we.re going to start with
         genesisTransaction = new Transaction(coinbase.publicKey, walletA.publicKey, 100f, null);
         genesisTransaction.generateSignature(coinbase.privateKey);
         genesisTransaction.transactionID = "0";
