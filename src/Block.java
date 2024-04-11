@@ -1,39 +1,53 @@
-package models;
-
 import helpers.StringUtil;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
 
 public class Block {
+
     public String hash;
-    private String data;
-    // the data we're working with is simple text/message
     public String previousHash;
+    public String merkleRoot;
+    public ArrayList<Transaction> transactions = new ArrayList<Transaction>();
     private long timeStamp;
     private int nonce;
 
-    public Block(String data, String previousHash) {
-        this.data = data;
+    public Block(String previousHash) {
         this.previousHash = previousHash;
         this.timeStamp = new Date().getTime();
+
         this.hash = generateHash();
     }
 
     public String generateHash() {
         return StringUtil.applySHA256(
                 previousHash +
-                        data +
                         Long.toString(timeStamp) +
-                        Integer.toString(nonce)
+                        Integer.toString(nonce) +
+                        merkleRoot
         );
     }
 
     public void mineBlock(int difficulty) {
+        merkleRoot = Helpers.getMerkleRoot(transactions);
         String target = new String(new char[difficulty]).replace('\0', '0');
         while (!hash.substring(0, difficulty).equals(target)) {
             nonce ++;
             hash = generateHash();
         }
         System.out.println("Block Mined!!! :" + hash);
+    }
+
+    public void addTransaction(Transaction transaction) {
+        if(transaction == null) return;
+        if(!"0".equals(previousHash)) {
+            if (!transaction.processTransaction()) {
+                System.out.println("Transaction failed to process. Discarded.");
+                return;
+            }
+        }
+        transactions.add(transaction);
+        System.out.println("Transaction successfully added to block!!");
     }
 }
